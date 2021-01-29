@@ -15,6 +15,7 @@
 #include "bpn.hpp"
 #include "common.hpp"
 #include "coord.hpp"
+#include "file.hpp"
 #include "time.hpp"
 
 #include <cstdlib>   // for EXIT_XXXX
@@ -35,6 +36,10 @@ int main(int argc, char* argv[]) {
   double jcn;              // Julian Century Number
   ns::Coord pos_src;       // 直交座標（元の）
   ns::Coord pos_res;       // 座標（適用後）
+  std::vector<std::vector<std::string>> l_ls;    // List of Leap Second
+  std::vector<std::vector<std::string>> l_dut;   // List of DUT1
+  std::vector<std::vector<double>>      dat_ls;  // data of lunisolar parameters
+  std::vector<std::vector<double>>      dat_pl;  // data of planetary parameters
 
   try {
     // コマンドライン引数の個数チェック
@@ -65,19 +70,27 @@ int main(int argc, char* argv[]) {
     pos_src.y = std::stod(argv[3]);
     pos_src.z = std::stod(argv[4]);
 
+    // うるう秒, DUT1 一覧、
+    // lunisolra, planetary パラメータ一覧取得
+    ns::File o_f;
+    if (!o_f.get_leap_sec_list(l_ls)) throw;
+    if (!o_f.get_dut1_list(l_dut))    throw;
+    if (!o_f.get_param_ls(dat_ls))    throw;
+    if (!o_f.get_param_pl(dat_pl))    throw;
+
     // JST -> UTC
     ts = ns::jst2utc(ts_jst);
 
     // TDB（太陽系力学時）, T（JCN; ユリウス世紀数）計算
     // （TDB（太陽系力学時）の代わりに、実質的に同じとみなしてもよいと
     //   されている TT（地球時）を計算してもよい）
-    ns::Time o_tm(ts);  // Object of UTC
+    ns::Time o_tm(ts, l_ls, l_dut);  // Object of UTC
     ts_tdb = o_tm.calc_tdb();
-    ns::Time o_tm_tdb(ts_tdb);  // Object of TDB
+    ns::Time o_tm_tdb(ts_tdb, l_ls, l_dut);  // Object of TDB
     jcn = o_tm_tdb.calc_t();
 
     // Calculation & Display
-    ns::Bpn o_bpn(jcn);
+    ns::Bpn o_bpn(jcn, dat_ls, dat_pl);
     std::cout << "      JST: "
               << ns::gen_time_str(ts_jst) << std::endl
               << "      TDB: "

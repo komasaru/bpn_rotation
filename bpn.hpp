@@ -2,7 +2,6 @@
 #define BPN_ROTATION_BPN_HPP_
 
 #include "coord.hpp"
-#include "file.hpp"
 #include "matrix.hpp"
 #include "nutation.hpp"
 #include "obliquity.hpp"
@@ -26,7 +25,9 @@ class Bpn {
   double r_nut[3][3];            // 回転行列（章動）
 
 public:
-  Bpn(double);                                // コンストラクタ
+  Bpn(double,
+      std::vector<std::vector<double>>&,
+      std::vector<std::vector<double>>&);     // コンストラクタ
   bool gen_r_bias(double(&)[3][3]);           // 変換行列生成: Bias
   bool gen_r_bias_prec(double(&)[3][3]);      // 変換行列生成: バイアス＆歳差
   bool gen_r_bias_prec_nut(double(&)[3][3]);  // 変換行列生成: バイアス＆歳差＆章動

@@ -1,8 +1,6 @@
 #ifndef BPN_ROTATION_TIME_HPP_
 #define BPN_ROTATION_TIME_HPP_
 
-#include "file.hpp"
-
 #include <cmath>
 #include <ctime>
 #include <fstream>
@@ -30,7 +28,10 @@ class Time {
   int    utc_tai;          // UTC - TAI (協定世界時と国際原子時の差 = うるう秒の総和)
 
 public:
-  Time(struct timespec);       // コンストラクタ
+  Time(
+      struct timespec,
+      std::vector<std::vector<std::string>>&,
+      std::vector<std::vector<std::string>>&);  // コンストラクタ
   struct timespec calc_jst();  // 計算: JST  (日本標準時)
   double calc_jd();            // 計算: JD   (ユリウス日)
   double calc_t();             // 計算: T    (ユリウス世紀数)
@@ -48,10 +49,8 @@ private:
   struct timespec utc2jst(struct timespec);  // UTC -> JST
   double gc2jd(struct timespec);             // GC  -> JD
   double jd2t(double);                       // JD  -> T
-  int    get_utc_tai(
-      std::vector<std::vector<std::string>>&, struct timespec);  // UTC -> UTC - TAI
-  double get_dut1(
-      std::vector<std::vector<std::string>>&, struct timespec);  // UTC -> DUT1
+  int    get_utc_tai(struct timespec);       // UTC -> UTC - TAI
+  double get_dut1(struct timespec);          // UTC -> DUT1
   struct timespec utc2tai(struct timespec);  // UTC -> TAI
   struct timespec utc2ut1(struct timespec);  // UTC -> UT1
   struct timespec tai2tt(struct timespec);   // TAI -> TT
