@@ -10,9 +10,9 @@ static constexpr double kTurnas = 1296000.0;      // Arcseconds in a full circle
 static constexpr double kU2R    = kAs2R / 1.0e7;  // Units of 0.1 microarcsecond to radians
 
 /*
- * @brief      コンストラクタ
+ * @brief       コンストラクタ
  *
- * @param[in]  Julian Century Number(double)
+ * @param[in]   Julian Century Number(double)
  * @param[ref]  lunisolar parameter 一覧 (vector<vector<double>>)
  * @param[ref]  planetary parameter 一覧 (vector<vector<double>>)
  */

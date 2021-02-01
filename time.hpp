@@ -1,6 +1,8 @@
 #ifndef BPN_ROTATION_TIME_HPP_
 #define BPN_ROTATION_TIME_HPP_
 
+#include "delta_t.hpp"
+
 #include <cmath>
 #include <ctime>
 #include <fstream>

@@ -72,6 +72,10 @@ int main(int argc, char* argv[]) {
 
     // うるう秒, DUT1 一覧、
     // lunisolra, planetary パラメータ一覧取得
+    l_ls.reserve(50);     // 予めメモリ確保
+    l_dut.reserve(250);   // 予めメモリ確保
+    dat_ls.reserve(700);  // 予めメモリ確保
+    dat_pl.reserve(700);  // 予めメモリ確保
     ns::File o_f;
     if (!o_f.get_leap_sec_list(l_ls)) throw;
     if (!o_f.get_dut1_list(l_dut))    throw;

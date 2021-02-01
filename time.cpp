@@ -1,4 +1,3 @@
-#include "delta_t.hpp"
 #include "time.hpp"
 
 namespace bpn_rotation {
