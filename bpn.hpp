@@ -13,8 +13,6 @@
 namespace bpn_rotation {
 
 class Bpn {
-  std::vector<std::vector<double>> dat_ls;  // Parameters of lunisolar
-  std::vector<std::vector<double>> dat_pl;  // Parameters of planetary
   double jcn;                    // JCN(T; ユリウス世紀数)
   double eps;                    // 黄道傾斜角
   double r_bias[3][3];           // 回転行列（バイアス）
@@ -25,9 +23,7 @@ class Bpn {
   double r_nut[3][3];            // 回転行列（章動）
 
 public:
-  Bpn(double,
-      std::vector<std::vector<double>>&,
-      std::vector<std::vector<double>>&);     // コンストラクタ
+  Bpn(double);                                // コンストラクタ
   bool gen_r_bias(double(&)[3][3]);           // 変換行列生成: Bias
   bool gen_r_bias_prec(double(&)[3][3]);      // 変換行列生成: バイアス＆歳差
   bool gen_r_bias_prec_nut(double(&)[3][3]);  // 変換行列生成: バイアス＆歳差＆章動
