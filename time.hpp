@@ -18,8 +18,8 @@ struct timespec jst2utc(struct timespec);
 std::string gen_time_str(struct timespec);
 
 class Time {
-  std::vector<std::vector<std::string>> l_ls;   // List of Leap Second
-  std::vector<std::vector<std::string>> l_dut;  // List of DUT1
+  static std::vector<std::vector<std::string>> l_ls;   // List of Leap Second
+  static std::vector<std::vector<std::string>> l_dut;  // List of DUT1
   struct timespec ts;      // timespec of UTC
   struct timespec ts_tai;  // timespec of TAI
   struct timespec ts_ut1;  // timespec of UT1
